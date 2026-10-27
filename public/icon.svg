@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <!-- Rounded Background Container -->
+  <rect width="512" height="512" rx="90" ry="90" fill="#ffffff" />
+
+  <!-- Logo Group with Rotated Bars & Dot -->
+  <g transform="translate(256, 256)">
+    <!-- Slanted Green Pill-Shaped Bars (Rotated F mark) -->
+    <g transform="rotate(-28)">
+      <!-- Top Long Bar -->
+      <rect x="-130" y="-120" width="220" height="52" rx="26" fill="#80D85C" />
+      <!-- Middle Bar -->
+      <rect x="-110" y="-38" width="180" height="52" rx="26" fill="#80D85C" />
+      <!-- Bottom Short Bar -->
+      <rect x="-90" y="44" width="130" height="52" rx="26" fill="#80D85C" />
+    </g>
+
+    <!-- Distinctive Purple Accent Dot -->
+    <circle cx="135" cy="25" r="26" fill="#6B21A8" />
+  </g>
+</svg>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FairMoney</title><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icon.svg"><meta name="theme-color" content="#1c1c22">
+<style>
+:root{--bg:#fff;--fg:#1a1a1f;--mut:#6b6f7a;--card:#f4f6f5;--g:#2fa36b;--gl:#e9f7f0;--r:#d33;--bd:#e3e6e4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121214;--fg:#f2f2f4;--mut:#9a9ea8;--card:#1e1f23;--gl:#173126;--bd:#2c2e33}}
+:root[data-theme="dark"]{--bg:#121214;--fg:#f2f2f4;--mut:#9a9ea8;--card:#1e1f23;--gl:#173126;--bd:#2c2e33}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;padding:14px 16px 96px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+h1,h2{margin:0}h2{font-size:20px}.mut{color:var(--mut);font-size:14px}
+.ic{width:40px;height:40px;border-radius:50%;border:0;background:var(--card);color:var(--fg);font-size:18px;cursor:pointer}
+.bal{background:linear-gradient(135deg,#1c1c22,#4a4d5c);color:#fff;border-radius:20px;padding:20px;margin:16px 0}
+.bal b{font-size:30px;display:block;margin:4px 0 8px}.bal a{color:#fff;text-decoration:underline;font-weight:600;cursor:pointer}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;font-weight:600;font-size:14px}
+.qa div{cursor:pointer}.qa span{display:flex;width:56px;height:56px;margin:0 auto 6px;border-radius:50%;background:var(--gl);align-items:center;justify-content:center;font-size:22px}
+.promo{border:1.5px solid var(--g);background:var(--gl);border-radius:16px;padding:14px;margin:18px 0}
+.btn{background:#1a1a1f;color:#fff;border:0;border-radius:14px;padding:14px 18px;font-size:16px;font-weight:700;cursor:pointer;min-height:48px}
+.btn.g{background:var(--g)}.btn.o{background:var(--card);color:var(--fg)}.btn.w{width:100%}.btn:disabled{opacity:.4;cursor:not-allowed}
+@media(prefers-color-scheme:dark){.btn:not(.g):not(.o){background:#f2f2f4;color:#111}}
+.tx{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd);align-items:center;cursor:pointer}
+.tx .a{margin-left:auto;text-align:right;font-weight:700;white-space:nowrap}.in{color:var(--g)}.out{color:var(--r)}
+.dot{width:40px;height:40px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;flex:none}
+label{display:block;font-weight:600;margin:14px 0 6px;font-size:14px}
+input,select{width:100%;padding:13px;border-radius:12px;border:1.5px solid var(--bd);background:var(--card);color:var(--fg);font-size:16px}
+.err{color:var(--r);font-size:13px;margin-top:5px;min-height:18px}
+.name{background:var(--gl);border-radius:12px;padding:12px;margin-top:10px;font-weight:800;color:var(--fg)}
+.name small{display:block;color:var(--g);font-weight:600}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav div{max-width:480px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.nav button{background:none;border:0;color:var(--mut);padding:10px;font-size:13px;cursor:pointer}.nav button.on{color:var(--fg);font-weight:800}.nav i{display:block;font-style:normal;font-size:20px}
+.list{background:var(--card);border-radius:16px;padding:6px 14px;margin-top:12px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);font-size:15px}.kv:last-child{border:0}.kv b{text-align:right;word-break:break-word}
+.chips button{border:1.5px solid var(--bd);background:none;color:var(--fg);padding:8px 14px;border-radius:99px;margin-right:6px;cursor:pointer}.chips .on{background:var(--g);color:#fff;border-color:var(--g)}
+.vc{background:linear-gradient(135deg,#0f5132,#2fa36b);color:#fff;border-radius:18px;padding:22px;margin:16px 0;min-height:170px}
+.ok{text-align:center;padding:20px 0}.ok .big{width:76px;height:76px;border-radius:50%;background:var(--g);color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;animation:pop .3s}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.back{background:none;border:0;color:var(--fg);font-size:15px;padding:6px 0;cursor:pointer;font-weight:600}
+</style></head><body><div id="app"></div>
+<script>
+const NAME="NWAOGARAKU CHIGOZIRI PROMISE",INIT=6835000000,KEY="ddb_state_v1";
+const BANKS=["Access Bank","FirstBank","Opay","UBA","Zenith Bank","GTBank","Fidelity Bank","Moniepoint","Opay","PalmPay","Kuda","Wema Bank","Sterling Bank","Union Bank","Stanbic IBTC","Polaris Bank","Ecobank","FCMB","Keystone Bank","Providus Bank","Jaiz Bank"];
+const BILLS={Airtime:["MTN","Airtel","Glo","9mobile"],Data:["MTN","Airtel","Glo","9mobile"],Electricity:["IKEDC","EKEDC","AEDC","PHED"],"Cable TV":["DStv","GOtv","StarTimes"]};
+const ICON={Airtime:"📞",Data:"📶",Electricity:"💡","Cable TV":"📺"};
+let S=load(),scr="home",hist={f:"all",q:""},T={bank:"",acct:"",amt:0,narr:""},P=null,busy=false,show=true,B=null,last=null,viewTx=null;
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&Number.isInteger(s.bal))return s}catch(e){}return{bal:INIT,tx:[],sav:0}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const fmt=k=>"₦"+(k/100).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});
+const dt=t=>new Date(t).toLocaleString("en-NG",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+const $=id=>document.getElementById(id);
+const parseK=v=>{const n=parseFloat(String(v).replace(/,/g,""));return isFinite(n)&&n>0?Math.round(n*100):0};
+const commas=v=>{v=v.replace(/[^\d.]/g,"");let[a,...b]=v.split(".");a=a.replace(/^0+(?=\d)/,"");a=a.replace(/\B(?=(\d{3})+(?!\d))/g,",");return b.length?a+"."+b.join("").slice(0,2):a};
+const ref=()=>"DDB"+Date.now().toString(36).toUpperCase()+Math.random().toString(36).slice(2,6).toUpperCase();
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function validateAmt(k,fee=0){if(!k)return"Enter an amount greater than ₦0.";if(k+fee>S.bal)return"Insufficient balance. Available: "+fmt(S.bal)+".";return""}
+function commit(p){if(p.amt+p.fee>S.bal&&p.type==="out")return null;
+ const t={ref:ref(),type:p.type,desc:p.desc,party:p.party,acct:p.acct||"",bank:p.bank||"",narr:p.narr||"",amt:p.amt,ts:Date.now(),status:"Successful "};
+ S.bal=p.type==="out"?S.bal-p.amt-p.fee:S.bal+p.amt;S.tx.unshift(t);save();return t}
+function go(s){scr=s;B=null;render();window.scrollTo(0,0)}
+function txRow(t){return`<div class="tx" onclick="viewTx='${t.ref}';go('txd')"><div class="dot">${t.type==="in"?"⬇":"⬆"}</div><div><b>${esc(t.desc)}</b><div class="mut">${esc(t.party)} · ${dt(t.ts)}</div><div class="mut">${t.type==="in"?"Received":"Sent"} · ${esc(t.status)}</div></div><div class="a ${t.type}">${t.type==="in"?"+":"−"}${fmt(t.amt)}</div></div>`}
+function nav(){return`<div class="nav"><div>${[["home","🏠","Home"],["transfers","↗","Transfers"],["savings","🪙","Savings"]].map(([k,i,l])=>`<button class="${scr===k?"on":""}" onclick="go('${k}')"><i>${i}</i>${l}</button>`).join("")}</div></div>`}
+const back=(to="home")=>`<button class="back" onclick="go('${to}')">← Back</button>`;
+const tag=`<div class="demo"></div>`;
+function render(){const a=$("app");let h=tag,n=false;
+ if(scr==="home"){n=true;h+=`<div class="row"><div class="row"><button class="ic" onclick="go('profile')">👤</button><div><div class="mut">Welcome to</div><h1 style="font-size:20px">FairMoney</h1></div></div><div><button class="ic" onclick="go('support')">🎧</button> <button class="ic" onclick="go('history')">🕘</button></div></div>
+ <div class="bal"><div>Account balance</div><b id="balv">${show?fmt(S.bal):"₦ ••••••••"}</b><div class="row"><a onclick="go('profile')">Account details</a><button class="ic" style="background:#ffffff22;color:#fff" onclick="show=!show;render()">${show?"👁":"🙈"}</button></div></div>
+ <div class="qa">${[["transfer","➤","Transfer"],["deposit","＋","Add money"],["cards","💳","Cards"],["bills","🧾","Bills"]].map(([k,i,l])=>`<div onclick="${k==="transfer"?"startT()":`go('${k}')`}"><span>${i}</span>${l}</div>`).join("")}</div>
+ <div class="promo row"><div><b>Experience simple, convenient banking.</b><div class="mut"> loan offer only</div></div><button class="btn" onclick="go('loan')">Get loan</button></div>
+ <div class="row"><b class="mut">Recent transactions</b><a style="color:#2563eb;cursor:pointer;font-weight:700" onclick="go('history')">View all</a></div>
+ ${S.tx.length?S.tx.slice(0,5).map(txRow).join(""):`<p class="mut">No transactions yet. Make a transfer or add money to get started.</p>`}`}
+ else if(scr==="transfers"){n=true;h+=`<h2>Transfers</h2><p class="mut">Balance: <b>${fmt(S.bal)}</b></p><button class="btn g w" onclick="startT()">New transfer</button><h3>Recent</h3>${S.tx.filter(t=>t.type==="out").slice(0,8).map(txRow).join("")||`<p class="mut">No transfers yet.</p>`}`}
+ else if(scr==="transfer"){h+=back()+`<h2>Transfer</h2><p class="mut">Available balance: <b>${fmt(S.bal)}</b></p>
+ <label>Recipient bank</label><input id="bank" list="bl" placeholder="Search bank" value="${esc(T.bank)}" oninput="T.bank=this.value;upd()"><datalist id="bl">${BANKS.map(b=>`<option>${b}</option>`).join("")}</datalist>
+ <label>Account number</label><input id="acct" inputmode="numeric" maxlength="10" placeholder="10-digit account number" value="${T.acct}" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10);T.acct=this.value;upd()">
+ <div id="lk"></div><label>Amount (₦)</label><input id="amt" inputmode="decimal" placeholder="0.00" value="${T.amt?commas(String(T.amt/100)):""}" oninput="this.value=commas(this.value);T.amt=parseK(this.value);upd()"><div class="err" id="ae"></div>
+ <label>Narration (optional)</label><input id="narr" maxlength="60" value="${esc(T.narr)}" oninput="T.narr=this.value"><br><br><button class="btn g w" id="cont" onclick="toConfirm()">Continue</button>`}
+ else if(scr==="confirm"){h+=`<h2>Confirm ${esc(P.title)}</h2><div class="list">${P.rows.map(([k,v])=>`<div class="kv"><span class="mut">${k}</span><b>${esc(v)}</b></div>`).join("")}</div><p class="mut"></p><div class="row"><button class="btn o w" onclick="go(P.from)">Cancel</button><button class="btn g w" id="cf" onclick="doConfirm()">${P.type==="in"?"Confirm deposit":"Confirm "+(P.title.toLowerCase())}</button></div>`}
+ else if(scr==="success"){h+=`<div class="ok"><div class="big">✓</div><h2>${last.type==="in"?"Deposit successful":"Transfer successful"}</h2><p class="mut"></p><h1 class="${last.type}">${fmt(last.amt)}</h1></div><div class="list"><div class="kv"><span class="mut">${last.type==="in"?"From":"To"}</span><b>${esc(last.party)}</b></div><div class="kv"><span class="mut">Reference</span><b>${last.ref}</b></div><div class="kv"><span class="mut">Date</span><b>${dt(last.ts)}</b></div><div class="kv"><span class="mut">New balance</span><b>${fmt(S.bal)}</b></div></div><br><button class="btn w" onclick="go('home')">Done</button>`}
+ else if(scr==="deposit"){h+=back()+`<h2>Add money</h2><p class="mut">deposit </p><label>Amount (₦)</label><input id="damt" inputmode="decimal" placeholder="0.00" oninput="this.value=commas(this.value);$('de').textContent=''"><div class="err" id="de"></div><br><button class="btn g w" onclick="depGo()">Continue</button>`}
+ else if(scr==="cards"){h+=back()+`<h2>Cards</h2><div class="vc"><div class="row"><b>FairMoney</b><span>VIRTUAL</span></div><h2 style="margin:30px 0 14px;letter-spacing:2px">4000 0000 0000 0000</h2><div class="row"><span>${NAME}</span><span>12/30</span></div></div><p class="mut"></p>`}
+ else if(scr==="bills"){h+=back()+`<h2>Bills</h2><div class="qa" style="grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px">${Object.keys(BILLS).map(k=>`<div onclick="B='${k}';go('bill')"><span>${ICON[k]}</span>${k}</div>`).join("")}</div>`}
+ else if(scr==="bill"){h+=back("bills")+`<h2>${B}</h2><p class="mut">Balance: ${fmt(S.bal)} payment</p><label>Provider</label><select id="bp">${BILLS[B].map(x=>`<option>${x}</option>`).join("")}</select><label>${B==="Electricity"?"Meter number":B==="Cable TV"?"Smartcard number":"Phone number"}</label><input id="bn" inputmode="numeric" maxlength="13" oninput="this.value=this.value.replace(/\\D/g,'')"><label>Amount (₦)</label><input id="ba" inputmode="decimal" oninput="this.value=commas(this.value)"><div class="err" id="be"></div><br><button class="btn g w" onclick="billGo()">Continue</button>`}
+ else if(scr==="history"){h+=back()+`<h2>Transaction history</h2><div class="chips" style="margin:12px 0">${[["all","All"],["out","Money sent"],["in","Money received"]].map(([k,l])=>`<button class="${hist.f===k?"on":""}" onclick="hist.f='${k}';render()">${l}</button>`).join("")}</div><input id="hq" placeholder="Search name or reference" value="${esc(hist.q)}" oninput="hist.q=this.value;hl()"><div id="hl"></div>`}
+ else if(scr==="txd"){const t=S.tx.find(x=>x.ref===viewTx);h+=back("history")+`<h2>Transaction details</h2><div class="list">${[["Reference",t.ref],["Type",t.type==="in"?"Received":"Sent"],["Amount",fmt(t.amt)],["Date",dt(t.ts)],[t.type==="in"?"Sender":"Recipient",t.party],["Account",t.acct||"—"],["Bank",t.bank||"—"],["Narration",t.narr||"—"],["Status",t.status]].map(([k,v])=>`<div class="kv"><span class="mut">${k}</span><b>${esc(v)}</b></div>`).join("")}</div>`}
+ else if(scr==="savings"){n=true;h+=`<h2>Savings</h2><div class="bal"><div>savings</div><b>${fmt(S.sav)}</b><div class="mut" style="color:#ccc"></div></div><label>Move to savings (₦)</label><input id="sa" inputmode="decimal" oninput="this.value=commas(this.value)"><div class="err" id="se"></div><br><button class="btn g w" onclick="savGo()">Save </button>`}
+ else if(scr==="loan"){h+=back()+`<h2>Loans</h2><div class="promo"><b>offer: up to ₦3,000,000</b><p class="mut"></p></div>`}
+ else if(scr==="support"){h+=back()+`<h2>Support</h2><p> </p>`}
+ else if(scr==="profile"){h+=back()+`<h2>Profile &amp; settings</h2><div class="list"><div class="kv"><span class="mut">Account name</span><b>${NAME}</b></div><div class="kv"><span class="mut">Account number</span><b>0000000000 </b></div><div class="kv"><span class="mut">Balance</span><b>${fmt(S.bal)}</b></div></div><h3>Privacy</h3><p class="mut">Everything is stored only in this browser (localStorage). No PINs, passwords or OTPs are requested or stored.</p><h3></h3><p class="mut"> </p><button class="btn w" style="background:var(--r);color:#fff" onclick="if(confirm('Reset balance and all transactions?')){S={bal:INIT,tx:[],sav:0};save();go('home')}"></button>`}
+ a.innerHTML=h+(n?nav():"");if(scr==="transfer")upd();if(scr==="history")hl()}
+function startT(){T={bank:"",acct:"",amt:0,narr:""};go("transfer")}
+function upd(){const ok10=T.acct.length===10,bk=BANKS.includes(T.bank);
+ $("lk").innerHTML=ok10?`<div class="name">${NAME}<small>✔ recipient matched</small></div>`:`<div class="mut" style="margin-top:6px">${T.acct.length?"Please enter the complete 10-digit account number.":"Enter a 10-digit account number to look up the recipient."}</div>`;
+ const e=T.amt?validateAmt(T.amt):"";$("ae").textContent=e;$("cont").disabled=!(ok10&&bk&&T.amt&&!e)}
+function toConfirm(){const e=validateAmt(T.amt);if(T.acct.length!==10||!BANKS.includes(T.bank)||e)return;
+ P={title:"transfer",type:"out",from:"transfer",desc:"Transfer to "+NAME,party:NAME,acct:T.acct,bank:T.bank,narr:T.narr,amt:T.amt,fee:0,rows:[["Recipient",NAME],["Account number",T.acct],["Bank",T.bank],["Amount",fmt(T.amt)],["Transfer fee",fmt(0)],["Total deducted",fmt(T.amt)],["Narration",T.narr||"—"]]};go("confirm")}
+function doConfirm(){if(busy)return;busy=true;$("cf").disabled=true;$("cf").textContent="Processing…";
+ setTimeout(()=>{const p=P;P=null;const t=p&&commit(p);busy=false;if(!t){alert("Transaction rejected: insufficient balance.");go("home");return}last=t;go("success")},900)}
+function depGo(){const k=parseK($("damt").value);if(!k){$("de").textContent="Enter an amount greater than ₦0.";return}
+ P={title:"deposit",type:"in",from:"deposit",desc:" deposit",party:"deposit",amt:k,fee:0,rows:[["Amount",fmt(k)],["Source"," deposit"],["New balance",fmt(S.bal+k)]]};go("confirm")}
+function billGo(){const k=parseK($("ba").value),n=$("bn").value,pr=$("bp").value;const e=n.length<8?"Enter a valid number (at least 8 digits).":validateAmt(k);if(e){$("be").textContent=e;return}
+ P={title:"payment",type:"out",from:"bill",desc:B+" – "+pr,party:pr,acct:n,narr:B,amt:k,fee:0,rows:[["Category",B],["Provider",pr],["Number",n],["Amount",fmt(k)],["Total deducted",fmt(k)]]};go("confirm")}
+function savGo(){const k=parseK($("sa").value),e=validateAmt(k);if(e){$("se").textContent=e;return}S.bal-=k;S.sav+=k;S.tx.unshift({ref:ref(),type:"out",desc:"Move to savings",party:"savings",acct:"",bank:"",narr:"",amt:k,ts:Date.now(),status:"Successful "});save();go("savings")}
+function hl(){const q=hist.q.toLowerCase(),l=S.tx.filter(t=>(hist.f==="all"||t.type===hist.f)&&(!q||t.party.toLowerCase().includes(q)||t.ref.toLowerCase().includes(q)));$("hl").innerHTML=l.length?l.map(txRow).join(""):`<p class="mut">No matching transactions.</p>`}
+render();if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
+</script></body></html>
